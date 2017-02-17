@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>双11最强攻略</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="description" content="此处自行修改">
+        <meta name="keywords" content="此处自行修改">
+        <style type="text/css">
+            *{margin: 0;padding: 0;}
+            #magazine{position:absolute;top:-8px;left:270px;width:1220px;height:850px;}
+            #magazine .turn-page{background-size:100% 100%;}
+            .gonglue-coat{position:absolute;left:50%;overflow:hidden;margin-left:-960px;width:1920px;height:850px;background:url(images/bg.jpg) no-repeat center top;}
+            .gonglue-coat .book-box{overflow:hidden;margin:0 auto;width:1800px;height:850px;}
+            .gonglue-coat .book-box .shubg{position:absolute;top:-8px;left:0;width:100%;height:100%;background:url(images/shuye2.png) no-repeat center top;}
+            .gonglue-coat .book-box .shubg.open{background:url(images/shuye.png) no-repeat center top;}
+            .gonglue-coat .book-box .btn{position:absolute;top:0;left:0;z-index:9999;width:84px;height:55px;}
+            .gonglue-coat .book-box .btn.next{top:736px;left:1450px;background:url(images/btn_next.png) no-repeat center top;}
+            .gonglue-coat .book-box .btn.prev{top:736px;left:380px;background:url(images/btn_prev.png) no-repeat center top;}
+            .page-1{background-image:url(images/1.png);}
+            .page-2{background-image:url(images/1_02.png);}
+            .page-3{background-image:url(images/1_03.png);}
+            .page-3 a{display:block;width:100%;height:100%;}
+            .page-4{background-image:url(images/2_02.png);}
+            .page-5{background-image:url(images/2_03.png);}
+            .page-6{background-image:url(images/3_02.png);}
+            .page-7{background-image:url(images/3_03.png);}
+            .page-8{background-image:url(images/4_02.png);}
+            .page-9{background-image:url(images/4_03.png);}
+            .page-10{background-image:url(images/5_02.png);}
+            .page-11{background-image:url(images/5_03.png);}
+            .page-12{background-image:url(images/6_02.png);}
+            .page-13{background-image:url(images/6_03.png);}
+            .page-13 a{display:block;width:100%;height:50%;}
+            .page-14{background-image:url(images/7_03.png);}
+            .page-15{background-image:url(images/8_02.png);}
+        </style>
+    </head>
+
+    <body>
+        <div class="gonglue-coat">
+            <div class="book-box">
+                <div class="shubg"></div>
+                <div id="magazine">
+                    <div class="page-1 hard"></div>
+                    <div class="page-2 hard"></div>
+                    <div class="page-3">
+                        <a href="" target="_blank"></a>
+                    </div>
+                    <div class="page-4"></div>
+                    <div class="page-5"></div>
+                    <div class="page-6"></div>
+                    <div class="page-7"></div>
+                    <div class="page-8"></div>
+                    <div class="page-9"></div>
+                    <div class="page-10"></div>
+                    <div class="page-11"></div>
+                    <div class="page-12"></div>
+                    <div class="page-13">
+                        <a href="" target="_blank"></a>
+                    </div>
+                    <div class="page-14"></div>
+                    <div class="page-15"></div>
+                </div>
+                <a href="javascript:void(0)" class="btn prev"></a>
+                <a href="javascript:void(0)" class="btn next"></a>
+            </div>
+        </div>
+        <script src="js/jquery-1.11.2.min.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+        <script type="text/javascript" src="js/turn.min.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                $('#magazine').turn({
+                    page: 1,
+                    duration: 1000,
+                    display: 'double',
+                    acceleration: true,
+                    gradients: false,
+                    elevation: 150,
+                    when: {
+                        turning: function(e, page) {
+                            if(page == 1) {
+                                $('.shubg').removeClass('open');
+                            } else if(page == 2) {
+                                $('.shubg').addClass('open');
+                            }
+                            if(page == 1) {
+                                $('.btn.prev').hide();
+                            } else if(page == 14) {
+                                $('.btn.next').hide();
+                            } else {
+                                $('.btn').show();
+                            }
+                        }
+                    }
+                });
+            
+                $('.book-box').find('.btn.next').click(function() {
+                    $('#magazine').turn('next');
+                })
+                $('.book-box').find('.btn.prev').click(function() {
+                    $('#magazine').turn('previous');
+                });            
+                $(window).on('keydown', function(e) {
+                    if (e.keyCode == 37) {
+                    	$('#magazine').turn('previous');
+                    } else if(e.keyCode == 39){
+                    	$('#magazine').turn('next')
+                    }
+                });
+                $('#magazine').mousewheel(function(event) {
+                    event.preventDefault();
+                    if(event.deltaY < 0) {
+                        // alert('下一页');				
+                        $('#magazine').turn('next');
+                    } else {
+                        $('#magazine').turn('previous');
+                    }
+                });
+            
+            })
+        </script>
+    </body>
+
+</html>
